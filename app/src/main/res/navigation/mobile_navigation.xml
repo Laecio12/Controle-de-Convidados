@@ -7,19 +7,19 @@
 
     <fragment
         android:id="@+id/nav_all_guests"
-        android:name="com.laecio.convidados.ui.home.AllGuestsFragment"
+        android:name="com.laecio.convidados.view.AllGuestsFragment"
         android:label="@string/menu_all_guests"
         tools:layout="@layout/fragment_all_guests" />
 
     <fragment
         android:id="@+id/nav_presents"
-        android:name="com.laecio.convidados.ui.gallery.PresentsFragment"
+        android:name="com.laecio.convidados.view.PresentsFragment"
         android:label="@string/menu_presents"
         tools:layout="@layout/fragment_presents" />
 
     <fragment
         android:id="@+id/nav_slideshow"
-        android:name="com.laecio.convidados.ui.slideshow.AbsentsFragment"
+        android:name="com.laecio.convidados.view.AbsentsFragment"
         android:label="@string/menu_absents"
         tools:layout="@layout/fragments_absents" />
 </navigation>
