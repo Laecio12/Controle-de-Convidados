@@ -1,8 +1,16 @@
 package com.laecio.convidados.viewmodel
 
-import androidx.lifecycle.ViewModel
+import android.app.Application
+import androidx.lifecycle.AndroidViewModel
+import com.laecio.convidados.model.GuestModel
+import com.laecio.convidados.repository.GuestRepository
 
 
-class GuestFormViewModel: ViewModel() {
+class GuestFormViewModel(application: Application) : AndroidViewModel(application) {
 
+    private val  repository = GuestRepository.getInstance(application)
+
+    fun insert(guest: GuestModel) {
+        repository.insert(guest)
+    }
 }

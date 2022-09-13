@@ -6,15 +6,17 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.laecio.convidados.databinding.FragmentsAbsentsBinding
+import com.laecio.convidados.view.adapter.GuestsAdapter
 import com.laecio.convidados.viewmodel.AbsentsViewModel
 
 class AbsentsFragment : Fragment() {
 
     private var _binding: FragmentsAbsentsBinding? = null
+    private lateinit var viewModel: AbsentsViewModel
+    private val adapter = GuestsAdapter()
 
-    // This property is only valid between onCreateView and
-    // onDestroyView.
     private val binding get() = _binding!!
 
     override fun onCreateView(
@@ -22,18 +24,26 @@ class AbsentsFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        val absentsViewModel =
-            ViewModelProvider(this).get(AbsentsViewModel::class.java)
+        viewModel = ViewModelProvider(this)[AbsentsViewModel::class.java]
 
         _binding = FragmentsAbsentsBinding.inflate(inflater, container, false)
-        val root: View = binding.root
 
+        binding.recyclerAbsentsGuests.layoutManager = LinearLayoutManager(context)
 
-        return root
+        binding.recyclerAbsentsGuests.adapter = adapter
+
+        viewModel.getAllAbsents()
+
+        observe()
+        return binding.root
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+    private fun observe () {
+        viewModel.absentsGuests.observe(viewLifecycleOwner, adapter::updateGuests)
     }
 }

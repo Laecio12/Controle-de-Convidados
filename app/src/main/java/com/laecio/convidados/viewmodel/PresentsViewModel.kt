@@ -1,13 +1,20 @@
 package com.laecio.convidados.viewmodel
 
-import androidx.lifecycle.LiveData
+import android.app.Application
+import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
+import com.laecio.convidados.model.GuestModel
+import com.laecio.convidados.repository.GuestRepository
 
-class PresentsViewModel : ViewModel() {
+class PresentsViewModel(application: Application) : AndroidViewModel(application) {
+    private val repository = GuestRepository.getInstance(application.applicationContext)
 
-    private val _text = MutableLiveData<String>().apply {
-        value = "This is gallery Fragment"
+    private val _presentsGuests  = MutableLiveData<List<GuestModel>>()
+
+    val presentsGuests: MutableLiveData<List<GuestModel>> = _presentsGuests
+
+    fun getAllPresents() {
+        _presentsGuests.value = repository.getAllPresents()
     }
-    val text: LiveData<String> = _text
+
 }
